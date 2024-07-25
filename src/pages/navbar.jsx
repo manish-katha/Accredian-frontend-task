@@ -13,7 +13,7 @@ export const Navbar = () => {
 
     try {
       const response = await axios.get(`${server}/users/logout`, {
-        withCredentials: true,
+        withCredentials: true, 
       });
 
       console.log("Logout response:", response); // Log the response from the server
