@@ -16,11 +16,13 @@ export const Navbar = () => {
         withCredentials: true, 
       });
 
-      console.log("Logout response:", response); // Log the response from the server
+      alert("Logout succesfully"); 
       setIsAuthenticated(false);
       console.log("User logged out, state updated to:", isAuthenticated);
     } catch (error) {
-      console.error("Logout failed", error);
+      alert("Logout failed");
+      setIsAuthenticated(true);
+
     }
   };
   return (

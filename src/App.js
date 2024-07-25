@@ -5,10 +5,9 @@ import { Login } from "./pages/login";
 import { Register } from "./pages/register";
 import { ReferralPage } from "./pages/Refer";
 
-
 function App() {
   return (
-    <div >
+    <div>
       <Router>
         <Routes>
           <Route path="/" element={<Hero />} />
