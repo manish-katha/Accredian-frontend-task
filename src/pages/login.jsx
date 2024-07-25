@@ -1,13 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Announcement } from "./anouncement";
 import { Navbar } from "./navbar";
 import { useNavigate } from "react-router-dom";
-import { server } from "../index";
+import { server, Context } from "../index";
 import axios from "axios";
 
 export const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { isAuthenticated, setIsAuthenticated } = useContext(Context);
+
   // const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const navigate = useNavigate();
@@ -41,11 +43,14 @@ export const Login = () => {
 
       console.log("success 2");
       alert("Login successfully");
+      setIsAuthenticated(true);
 
       navigate("/");
     } catch (error) {
       console.log(error);
       alert("Login fail");
+      setIsAuthenticated(false);
+
       navigate("/register");
     }
   };

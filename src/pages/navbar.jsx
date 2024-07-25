@@ -1,11 +1,28 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useState } from "react";
 import { useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { server } from "../index";
+import { server, Context } from "../index";
 
 export const Navbar = () => {
+  const { isAuthenticated, setIsAuthenticated } = useContext(Context);
+
+  const logoutHandler = async () => {
+    console.log("Logout button clicked"); // Log for checking button click
+
+    try {
+      const response = await axios.get(`${server}/users/logout`, {
+        withCredentials: true,
+      });
+
+      console.log("Logout response:", response); // Log the response from the server
+      setIsAuthenticated(false);
+      console.log("User logged out, state updated to:", isAuthenticated);
+    } catch (error) {
+      console.error("Logout failed", error);
+    }
+  };
   return (
     <div className="w-full flex items-center justify-center px-3 fixed top-12">
       <div className="w-5/6 flex justify-between items-center">
@@ -40,18 +57,18 @@ export const Navbar = () => {
             </li>
             <li>About Us</li>
             <li>
-              {/* {isLoggedIn ? (
+              {isAuthenticated ? (
                 <button
-                  onClick={handleLogout}
-                  className="flex items-center justify-center h-10 w-32 rounded-md bg-[#94A3B8] text-black "
+                  onClick={logoutHandler}
+                  className="flex items-center justify-center h-10 w-32 rounded-md bg-[#94A3B8] text-black"
                 >
                   Logout
                 </button>
-              ) : ( */}
-              <button className="flex items-center justify-center h-10 w-32 rounded-md bg-[#94A3B8] text-black">
-                <a href="/login">Login</a>
-              </button>
-              {/* )} */}
+              ) : (
+                <button className="flex items-center justify-center h-10 w-32 rounded-md bg-[#94A3B8] text-black">
+                  <a href="/login">Login</a>
+                </button>
+              )}
             </li>
             <li>
               <button className="flex items-center justify-center text-white bg-blue-500 h-10 w-32 rounded-md">
